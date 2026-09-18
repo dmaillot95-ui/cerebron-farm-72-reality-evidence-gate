@@ -1,0 +1,40 @@
+{
+  "farm_id": 72,
+  "name": "cerebron-farm-72-reality-evidence-gate",
+  "domain": "reality-evidence-gate",
+  "status": "SCAFFOLDED",
+  "protocol": "SPIRALIX-OMEGA",
+  "capabilities": [
+    "reality-evidence-gate",
+    "claim-evidence-enforcement",
+    "provenance-validation"
+  ],
+  "evidence_ceiling": "E2-before-qualified-external-evidence",
+  "kernel": "dmaillot95-ui/cerebron-omega-ai",
+  "evidence_scale": [
+    "E0",
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6",
+    "E7",
+    "E8"
+  ],
+  "allowed_status": [
+    "VERIFIED",
+    "SUPPORTED",
+    "PRELIMINARY",
+    "CONTRADICTORY",
+    "FAILED",
+    "UNKNOWN"
+  ],
+  "rules": [
+    "REALITY>COHERENCE",
+    "EVIDENCE>CONFIDENCE",
+    "CLAIM<=EVIDENCE",
+    "VERIFY_BEFORE_COMMIT",
+    "SIMULATION!=TEST"
+  ]
+}
