@@ -1,0 +1,22 @@
+name: CEREBRON F72 Farm Contract
+on:
+  push:
+    paths: ['farm.json','.github/workflows/farm-contract.yml']
+  workflow_dispatch:
+jobs:
+  validate-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Validate farm contract
+        shell: python
+        run: |
+          import json
+          p=json.load(open("farm.json"))
+          assert p["farm_id"]==72
+          assert p["evidence_scale"]==[f"E{i}" for i in range(9)]
+          assert p["allowed_status"]==["VERIFIED","SUPPORTED","PRELIMINARY","CONTRADICTORY","FAILED","UNKNOWN"]
+          assert "CLAIM<=EVIDENCE" in p["rules"]
+          print("F72_CONTRACT_VERIFIED")
