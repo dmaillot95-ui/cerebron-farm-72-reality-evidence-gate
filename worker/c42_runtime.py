@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+import json,pathlib,datetime
+f=json.load(open("farm.json",encoding="utf-8"))
+assert f["farm_id"]==72; assert f["protocol"]=="SPIRALIX-OMEGA"; assert f["kernel"]=="dmaillot95-ui/cerebron-omega-ai"
+out={"CEREBRON_MODE":"STRUCTURED","CEREBRON_VERSION":"C42.1","ROLE":"reality-evidence-gate","EVIDENCE_STATUS":"RUNTIME_CONTRACT_VERIFIED","farm_id":72,"capabilities":f.get("capabilities",[]),"evidence_ceiling":f.get("evidence_ceiling","UNKNOWN"),"CLAIM":"C42.1 deterministic runtime is executable; declared domain capability is not thereby validated.","METHOD":"Repository-local invariant validation and machine-readable evidence emission.","ASSUMPTIONS":["farm.json is the declared local configuration"],"EVIDENCE":["identity/protocol/kernel assertions passed"],"COUNTEREVIDENCE":[],"DEPENDENCIES":["farm.json"],"PROVENANCE":{"repository":"dmaillot95-ui/cerebron-farm-72-reality-evidence-gate","generated_at":datetime.datetime.now(datetime.timezone.utc).isoformat()},"RESIDUAL":"Domain-specific capability remains to be demonstrated independently.","SMALLEST_REMAINING_GAP":"Executable domain benchmark.","NEXT_DECISIVE_TEST":"Run and audit a domain-specific benchmark."}
+pathlib.Path("artifacts").mkdir(exist_ok=True);pathlib.Path("artifacts/c42_runtime.json").write_text(json.dumps(out,indent=2),encoding="utf-8");print(json.dumps(out,indent=2))
