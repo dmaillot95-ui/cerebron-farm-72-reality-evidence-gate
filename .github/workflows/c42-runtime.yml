@@ -1,0 +1,15 @@
+name: CEREBRON C42.1 Runtime F72
+on:
+  push:
+    paths: ['farm.json','worker/c42_runtime.py','CEREBRON-C42.1-CONTRACT.md','.github/workflows/c42-runtime.yml']
+  workflow_dispatch:
+jobs:
+  c42-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python worker/c42_runtime.py
+      - uses: actions/upload-artifact@v4
+        with: {name: f72-c42-runtime, path: artifacts/c42_runtime.json}
