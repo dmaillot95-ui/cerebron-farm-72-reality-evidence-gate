@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '*/5 * * * *'
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: agora-recursive-${{ github.repository }}
   cancel-in-progress: false
@@ -14,68 +14,34 @@ jobs:
     timeout-minutes: 4
     steps:
       - uses: actions/checkout@v4
-      - name: Restore previous recursive state
-        uses: actions/cache/restore@v4
-        with:
-          path: .agora-state
-          key: agora-state-${{ github.repository }}-${{ github.run_id }}
-          restore-keys: |
-            agora-state-${{ github.repository }}-
-      - name: Build STATE(t+1)
+      - name: Restore durable state
         shell: bash
         run: |
           mkdir -p .agora-state
-          if [ -f .agora-state/state.json ]; then
-            cp .agora-state/state.json .agora-state/parent.json
-            PARENT=$(python -c "import json;print(json.load(open('.agora-state/parent.json')).get('state_id','GENESIS'))" 2>/dev/null || echo GENESIS)
-            ITER=$(python -c "import json;print(int(json.load(open('.agora-state/parent.json')).get('iteration',0))+1)" 2>/dev/null || echo 1)
-          else
-            PARENT=GENESIS
-            ITER=1
-          fi
-          STATE_ID="${GITHUB_REPOSITORY}:${GITHUB_RUN_ID}"
+          if [ -f agora/state.json ]; then cp agora/state.json .agora-state/state.json; fi
+      - name: Build STATE(t+1)
+        shell: bash
+        run: |
           python - <<'PY'
           import json,os
-          p=".agora-state/parent.json"
-          parent={}
-          try:
-              parent=json.load(open(p))
-          except Exception:
-              pass
-          state={
-            "schema":"AGORA_RECURSIVE_STATE_V1",
-            "state_id":os.environ.get("GITHUB_REPOSITORY","repo")+":"+os.environ.get("GITHUB_RUN_ID","run"),
-            "parent_state_id":parent.get("state_id","GENESIS"),
-            "iteration":int(parent.get("iteration",0))+1,
-            "resource":os.environ.get("GITHUB_REPOSITORY"),
-            "status":"CHECKPOINT_PENDING_EVIDENCE",
-            "residual":parent.get("nextlock","BOOTSTRAP"),
-            "claims":[],
-            "evidence_ids":[],
-            "questions":[],
-            "errors":[],
-            "anti_error_rules":parent.get("anti_error_rules",[]),
-            "audit":"PENDING",
-            "red_team":"PENDING",
-            "reproduction":"PENDING",
-            "reality_gate":"PENDING",
-            "ablation":"PENDING",
-            "transfer":"PENDING",
-            "decision":"HOLD",
-            "nextlock":"COLLECT_REAL_OUTPUT",
-            "rule":"WORKFLOW_EXECUTION!=LEARNING!=PROOF"
-          }
-          json.dump(state,open(".agora-state/state.json","w"),indent=2)
+          p=".agora-state/state.json"
+          try: parent=json.load(open(p))
+          except Exception: parent={}
+          state={"schema":"AGORA_RECURSIVE_STATE_V2","state_id":os.environ["GITHUB_REPOSITORY"]+":"+os.environ["GITHUB_RUN_ID"],"parent_state_id":parent.get("state_id","GENESIS"),"iteration":int(parent.get("iteration",0))+1,"resource":os.environ["GITHUB_REPOSITORY"],"residual":parent.get("nextlock","BOOTSTRAP"),"claims":[],"evidence_ids":[],"questions":[],"errors":[],"anti_error_rules":parent.get("anti_error_rules",[]),"audit":"PENDING","red_team":"PENDING","reproduction":"PENDING","reality_gate":"PENDING","ablation":"PENDING","transfer":"PENDING","decision":"HOLD","nextlock":"COLLECT_REAL_OUTPUT","rule":"WORKFLOW_EXECUTION!=LEARNING!=PROOF"}
+          json.dump(state,open(p,"w"),indent=2)
           PY
-          cat .agora-state/state.json
-      - name: Save recursive state
-        uses: actions/cache/save@v4
-        with:
-          path: .agora-state
-          key: agora-state-${{ github.repository }}-${{ github.run_id }}
-      - name: Publish recursive checkpoint
-        uses: actions/upload-artifact@v4
+          mkdir -p agora && cp .agora-state/state.json agora/state.json
+      - name: Commit durable packet
+        shell: bash
+        run: |
+          git config user.name "cerebron-agora-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add agora/state.json
+          git diff --cached --quiet && exit 0
+          git commit -m "AGORA recursive state ${GITHUB_RUN_ID}"
+          git push
+      - uses: actions/upload-artifact@v4
         with:
           name: recursive-state-${{ github.run_id }}
-          path: .agora-state/state.json
+          path: agora/state.json
           retention-days: 14
