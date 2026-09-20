@@ -15,33 +15,53 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Restore durable state
-        shell: bash
         run: |
           mkdir -p .agora-state
           if [ -f agora/state.json ]; then cp agora/state.json .agora-state/state.json; fi
+      - name: Execute AVP-0001 reality gate
+        run: |
+          python - <<'PY'
+          import json,urllib.request,pathlib
+          def get(url):
+              with urllib.request.urlopen(url,timeout=20) as r: return json.load(r)
+          packet=get("https://raw.githubusercontent.com/dmaillot95-ui/cerebron-omega-ai/main/agora/validation/AVP-0001.json")
+          registry=get("https://raw.githubusercontent.com/dmaillot95-ui/cerebron-omega-ai/main/config/farms.json")
+          rep=get("https://raw.githubusercontent.com/dmaillot95-ui/cerebron-farm-71-scientific-reproduction/main/agora/state.json")
+          farms=registry["farms"]; ids=[f["id"] for f in farms]; repos=[f["repo"] for f in farms]
+          observed={"count":len(farms),"ids_1_to_74":ids==list(range(1,75)),"ids_unique":len(set(ids))==len(ids),"repos_unique":len(set(repos))==len(repos)}
+          claim_ok=observed["count"]==74 and all(v for k,v in observed.items() if k!="count")
+          reproduction_ok=rep.get("reproduction")=="PASS" and rep.get("claims")==["AVP-0001:C1"]
+          evidence_ok=packet.get("packet_id")=="AVP-0001" and bool(packet.get("evidence"))
+          gate="PASS" if claim_ok and reproduction_ok and evidence_ok else "FAIL"
+          result={"packet_id":"AVP-0001","observed":observed,"claim_matches_reality":claim_ok,"independent_reproduction_seen":reproduction_ok,"evidence_declared":evidence_ok,"reality_gate":gate}
+          pathlib.Path(".agora-state").mkdir(exist_ok=True)
+          pathlib.Path(".agora-state/reality.json").write_text(json.dumps(result,indent=2))
+          print(json.dumps(result,indent=2))
+          PY
       - name: Build STATE(t+1)
-        shell: bash
         run: |
           python - <<'PY'
           import json,os
           p=".agora-state/state.json"
           try: parent=json.load(open(p))
           except Exception: parent={}
-          state={"schema":"AGORA_RECURSIVE_STATE_V2","state_id":os.environ["GITHUB_REPOSITORY"]+":"+os.environ["GITHUB_RUN_ID"],"parent_state_id":parent.get("state_id","GENESIS"),"iteration":int(parent.get("iteration",0))+1,"resource":os.environ["GITHUB_REPOSITORY"],"residual":parent.get("nextlock","BOOTSTRAP"),"claims":[],"evidence_ids":[],"questions":[],"errors":[],"anti_error_rules":parent.get("anti_error_rules",[]),"audit":"PENDING","red_team":"PENDING","reproduction":"PENDING","reality_gate":"PENDING","ablation":"PENDING","transfer":"PENDING","decision":"HOLD","nextlock":"COLLECT_REAL_OUTPUT","rule":"WORKFLOW_EXECUTION!=LEARNING!=PROOF"}
+          x=json.load(open(".agora-state/reality.json"))
+          state={"schema":"AGORA_RECURSIVE_STATE_V2","state_id":os.environ["GITHUB_REPOSITORY"]+":"+os.environ["GITHUB_RUN_ID"],"parent_state_id":parent.get("state_id","GENESIS"),"iteration":int(parent.get("iteration",0))+1,"resource":os.environ["GITHUB_REPOSITORY"],"residual":parent.get("nextlock","BOOTSTRAP"),"claims":["AVP-0001:C1"],"evidence_ids":["AVP-0001:E1","F71:REPRODUCTION"],"questions":[],"errors":[],"anti_error_rules":parent.get("anti_error_rules",[]),"audit":"PENDING","red_team":"PENDING","reproduction":"PASS" if x["independent_reproduction_seen"] else "FAIL","reality_gate":x["reality_gate"],"reality_observations":x,"ablation":"PENDING","transfer":"PENDING","decision":"HOLD","nextlock":"ABLATION_TRANSFER" if x["reality_gate"]=="PASS" else "REALITY_FAILURE","rule":"WORKFLOW_EXECUTION!=LEARNING!=PROOF"}
           json.dump(state,open(p,"w"),indent=2)
           PY
           mkdir -p agora && cp .agora-state/state.json agora/state.json
       - name: Commit durable packet
-        shell: bash
         run: |
           git config user.name "cerebron-agora-bot"
           git config user.email "actions@users.noreply.github.com"
           git add agora/state.json
           git diff --cached --quiet && exit 0
-          git commit -m "AGORA recursive state ${GITHUB_RUN_ID}"
+          git commit -m "AGORA F72 reality state ${GITHUB_RUN_ID}"
           git push
       - uses: actions/upload-artifact@v4
         with:
           name: recursive-state-${{ github.run_id }}
-          path: agora/state.json
+          path: |
+            agora/state.json
+            .agora-state/reality.json
           retention-days: 14
