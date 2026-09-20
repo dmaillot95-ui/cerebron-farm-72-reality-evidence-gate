@@ -1,0 +1,22 @@
+{
+  "schema": "AGORA_RECURSIVE_STATE_V2",
+  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35513757944",
+  "parent_state_id": "GENESIS",
+  "iteration": 1,
+  "resource": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
+  "residual": "BOOTSTRAP",
+  "claims": [],
+  "evidence_ids": [],
+  "questions": [],
+  "errors": [],
+  "anti_error_rules": [],
+  "audit": "PENDING",
+  "red_team": "PENDING",
+  "reproduction": "PENDING",
+  "reality_gate": "PENDING",
+  "ablation": "PENDING",
+  "transfer": "PENDING",
+  "decision": "HOLD",
+  "nextlock": "COLLECT_REAL_OUTPUT",
+  "rule": "WORKFLOW_EXECUTION!=LEARNING!=PROOF"
+}
