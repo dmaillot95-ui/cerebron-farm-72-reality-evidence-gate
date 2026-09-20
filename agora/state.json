@@ -1,22 +1,40 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35518066037",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35517684655",
-  "iteration": 10,
+  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35518654587",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35518066037",
+  "iteration": 11,
   "resource": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
   "residual": "COLLECT_REAL_OUTPUT",
-  "claims": [],
-  "evidence_ids": [],
+  "claims": [
+    "AVP-0001:C1"
+  ],
+  "evidence_ids": [
+    "AVP-0001:E1",
+    "F71:REPRODUCTION"
+  ],
   "questions": [],
   "errors": [],
   "anti_error_rules": [],
   "audit": "PENDING",
   "red_team": "PENDING",
-  "reproduction": "PENDING",
-  "reality_gate": "PENDING",
+  "reproduction": "PASS",
+  "reality_gate": "PASS",
+  "reality_observations": {
+    "packet_id": "AVP-0001",
+    "observed": {
+      "count": 74,
+      "ids_1_to_74": true,
+      "ids_unique": true,
+      "repos_unique": true
+    },
+    "claim_matches_reality": true,
+    "independent_reproduction_seen": true,
+    "evidence_declared": true,
+    "reality_gate": "PASS"
+  },
   "ablation": "PENDING",
   "transfer": "PENDING",
   "decision": "HOLD",
-  "nextlock": "COLLECT_REAL_OUTPUT",
+  "nextlock": "ABLATION_TRANSFER",
   "rule": "WORKFLOW_EXECUTION!=LEARNING!=PROOF"
 }
