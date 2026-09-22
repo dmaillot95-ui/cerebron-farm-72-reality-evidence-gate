@@ -1,10 +1,10 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35748410106",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35747139498",
-  "iteration": 267,
+  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35749477548",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:35748410106",
+  "iteration": 268,
   "resource": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
-  "residual": "ABLATION_TRANSFER",
+  "residual": "REALITY_FAILURE",
   "claims": [
     "AVP-0001:C1"
   ],
@@ -17,7 +17,7 @@
   "anti_error_rules": [],
   "audit": "PENDING",
   "red_team": "PENDING",
-  "reproduction": "PASS",
+  "reproduction": "FAIL",
   "reality_gate": "FAIL",
   "reality_observations": {
     "packet_id": "AVP-0001",
@@ -28,7 +28,7 @@
       "repos_unique": true
     },
     "claim_matches_reality": false,
-    "independent_reproduction_seen": true,
+    "independent_reproduction_seen": false,
     "evidence_declared": true,
     "reality_gate": "FAIL"
   },
