@@ -1,0 +1,11 @@
+{
+  "schema": "F72_WAVE1_AFAH_LORA_EVIDENCE_REVIEW_REQUEST_V1",
+  "source_repo": "dmaillot95-ui/cerebron-omega-ai",
+  "source_commit": "b8702f2b7c713819a6c7b60df00910a0e5c70f55",
+  "role_receipt_path": "receipts/wave1/canonical/afah-lora-36109026167.json",
+  "canonical_audit_path": "receipts/wave1/canonical/wave1-parallel-lora-audit-36109026167.json",
+  "expected_role": "AFAH",
+  "expected_adapter_sha256": "60695846b0b7d8144c043c4f3340e7a6d4b5862e04b89acf2738acf571f4cda0",
+  "requested_claim": "AFAH Wave1 LoRA has scoped synthetic neural evidence sufficient for final policy review, without runtime activation.",
+  "auto_runtime_activation": false
+}
