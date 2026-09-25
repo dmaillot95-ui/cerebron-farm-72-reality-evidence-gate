@@ -1,0 +1,52 @@
+name: F72 AVP-0001 Scope Root Cause V1
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'config/avp0001-scope-root-cause-trigger.txt'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Run historical-scope root cause audit
+        run: python worker/avp0001_scope_root_cause_v1.py
+      - name: Verify no release
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/avp0001_scope_root_cause_v1.json").read_text())
+          assert d["status"]=="PASS"
+          assert d["historical_claim_matches_source"] is True
+          assert d["historical_claim_matches_current"] is False
+          assert d["global_release"] is False
+          assert d["gold_released"] is False
+          assert d["training_released"] is False
+          assert all(d["checks"].values())
+          print("AVP0001_SCOPE_ROOT_CAUSE=PASS",d["receipt_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-avp0001-scope-root-cause-v1
+          path: artifacts/avp0001_scope_root_cause_v1.json
+          if-no-files-found: error
+      - name: Persist audit receipt
+        run: |
+          mkdir -p receipts
+          cp artifacts/avp0001_scope_root_cause_v1.json receipts/avp0001-scope-root-cause-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/avp0001-scope-root-cause-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 AVP0001 scope root cause ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1

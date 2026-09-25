@@ -1,0 +1,6 @@
+F72 AVP-0001 SCOPE ROOT CAUSE V1
+packet_source_commit=c738b2e415463fc176cb2635b4ef0548453e6760
+current_registry_commit=cd6b614ef27becbbf1a4a008bc38c5d15b280e2a
+global_release=false
+gold_release=false
+training_release=false
