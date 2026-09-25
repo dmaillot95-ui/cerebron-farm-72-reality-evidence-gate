@@ -1,0 +1,53 @@
+{
+  "schema": "F72_SAPHEA_EVIDENCE_REVIEW_V1",
+  "farm_id": 72,
+  "farm_role": "reality-evidence-gate",
+  "source_repo": "dmaillot95-ui/cerebron-omega-ai",
+  "source_commit": "922afe778026fbe41e130ceefd908e702962642c",
+  "source_receipt_content_sha256": {
+    "training": "6684adf789c8c7bd94f97a14dd2bcae3bf9b1cebdfeebe91ebb8d65318062f05",
+    "transfer": "17b4a0a0daeb2fe858a611d1b1a091888ecd7fdbeae4cf23f3271051da782e13",
+    "counter_audit": "3b74338fb80b5ef85b226ff252e768303152653735c68a39733c102831325372"
+  },
+  "adapter_sha256": "0187a8e3b1ef1edcfd966b463137c36721fe9bcf5019233b52e4ec1354b01080",
+  "checks": {
+    "training_run": true,
+    "weights_changed": true,
+    "m6_deny_training": true,
+    "hf_private_readback": true,
+    "cold_gain_positive": true,
+    "training_not_auto_promoted": true,
+    "adapter_sha_consistent": true,
+    "transfer_run": true,
+    "transfer_frozen": true,
+    "transfer_disjoint": true,
+    "transfer_gain_positive": true,
+    "ablation_supports_value": true,
+    "no_transfer_critical_regression": true,
+    "counter_audit_run": true,
+    "codepath_reproduction_pass": true,
+    "redteam_pass": true,
+    "counter_audit_pass": true,
+    "external_independence_not_claimed": true
+  },
+  "review_pass": true,
+  "evidence_status": "SUPPORTED",
+  "evidence_level": "E2",
+  "claim_reviewed": "SAPHEA G1 reversible LoRA changed adapter weights and improved scoped cold, held-out transfer, and adversarial synthetic evaluations.",
+  "claim_ceiling": "SUPPORTED_SCOPED_SYNTHETIC_NEURAL_ADAPTER_EVIDENCE",
+  "route": "AFAH_SCOPED_PROMOTION_REVIEW",
+  "residual": [
+    "All evaluated datasets are synthetic and scoped to epistemic-status classification.",
+    "Independent audit used a distinct evaluator/oracle code path but the same base-model lineage and project.",
+    "No external laboratory, third-party model, or physical-world reproduction is present.",
+    "This review does not establish general SAPHEA capability."
+  ],
+  "rules_applied": [
+    "REALITY>COHERENCE",
+    "EVIDENCE>CONFIDENCE",
+    "CLAIM<=EVIDENCE",
+    "VERIFY_BEFORE_COMMIT",
+    "SIMULATION!=TEST"
+  ],
+  "result_sha256": "14ade8931dd4b8ee8c4b232baf5edd8066cf38d4ac41dc4ddb14184b42f8cee3"
+}
