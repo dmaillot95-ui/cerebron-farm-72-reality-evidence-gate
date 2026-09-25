@@ -1,0 +1,92 @@
+{
+  "schema": "F72_RDX_MEMORY_EVIDENCE_REVIEW_V1",
+  "farm_id": 72,
+  "farm_role": "reality-evidence-gate",
+  "sources": {
+    "ingress": {
+      "repo": "dmaillot95-ui/cerebron-rdx-exchange",
+      "commit": "c9abd88e3dc5bfad4b704939bf5867494f4c34d6",
+      "receipt": "evidence/rdx-canaries/rdx-ingress-canary-36142030500.json"
+    },
+    "write_read_recall": {
+      "repo": "dmaillot95-ui/cerebron-omega-ai",
+      "commit": "32aa8415bc2ac9d7927dfa003767dd8478fea1f1",
+      "receipt": "receipts/rdx/rdx-memory-write-read-recall-canary-v1.json"
+    },
+    "f114": {
+      "repo": "dmaillot95-ui/cerebron-farm-114-encyclopedic-memory-index",
+      "commit": "ffac54ec8dd4bdb681e17d154f6e2eb9e3a37d81",
+      "receipt": "receipts/rdx-canonical-index-canary-36146849036.json"
+    },
+    "f115": {
+      "repo": "dmaillot95-ui/cerebron-farm-115-vector-semantic-memory",
+      "commit": "36000bb0a473016d0e7cfab159a4711fa6075885",
+      "receipt": "receipts/rdx-semantic-recall-canary-36146647325.json"
+    },
+    "f116": {
+      "repo": "dmaillot95-ui/cerebron-farm-116-dedup-knowledge-fusion",
+      "commit": "3ff39f51f8d7c3071497d3e9f3f72778061b4258",
+      "receipt": "receipts/rdx-dedup-fusion-canary-36146855717.json"
+    },
+    "f72_state": {
+      "repo": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
+      "commit": "d2ca8fbad1e837f2da641a24aa74b49e795af0ff",
+      "receipt": "agora/state.json"
+    }
+  },
+  "source_content_sha256": {
+    "ingress": "4fa6a251448c451e4444d7a546051bf33c722c641e131a24ad770e8be6907bd9",
+    "write_read_recall": "e92d1b75c6b7acaa252f30846d71874a70ab59f75c7991c32f80ff9cd3bee37a",
+    "f114": "b3fc70d75d1f9fff56a8f27cb2aa6068a7dfa1a7f75350ffeb88a4e4cb02d569",
+    "f115": "e37a0b863ae1f890ae4dd23a8fcb71b2a832089b92fb2a9abbc97dcb602f6327",
+    "f116": "1eceb9c565d658abb164110af59d4fb4cf1100b9de54a7d77e400d5df1b9fc89",
+    "f72_state": "c94e48f4f7da455042a9d2aa16ad02d56a77e2cd38c9b4bebd1653c1e1903c1f"
+  },
+  "checks": {
+    "ingress_schema": true,
+    "ingress_receipt": true,
+    "ingress_memory_only": true,
+    "ingress_gold_locked": true,
+    "ingress_training_locked": true,
+    "recall_schema": true,
+    "recall_receipt": true,
+    "recall_io_pass": true,
+    "recall_classes": true,
+    "recall_training_locked": true,
+    "recall_semantic_not_claimed": true,
+    "f114_status": true,
+    "f114_receipt": true,
+    "f114_canonical_conflict": true,
+    "f114_training_locked": true,
+    "f115_status": true,
+    "f115_receipt": true,
+    "f115_model_pinned": true,
+    "f115_thresholds": true,
+    "f115_scope_limited": true,
+    "f116_status": true,
+    "f116_receipt": true,
+    "f116_exact_dedup": true,
+    "f116_scope_limited": true,
+    "global_f72_still_fail": true,
+    "no_global_release_requested": true
+  },
+  "review_pass": true,
+  "evidence_status": "SUPPORTED",
+  "evidence_level": "E2",
+  "decision": "F72_SUPPORTS_RDX_MEMORY_CANARY_STACK_ONLY",
+  "route": "AFAH_RDX_MEMORY_EVIDENCE_REVIEW_PENDING",
+  "global_f72_gate": "FAIL",
+  "gold_released": false,
+  "training_released": false,
+  "production_rag_quality": "NOT_PROVEN",
+  "semantic_canary_scope": "SYNTHETIC_ONLY",
+  "claim_ceiling": "SUPPORTED_SCOPED_RDX_MEMORY_CANARY_EVIDENCE_NO_GOLD_NO_TRAINING",
+  "residual": [
+    "F115 semantic retrieval was measured only on an 8-query synthetic canary; production RAG quality is not established.",
+    "F116 validates normalized exact deduplication and provenance fusion only; semantic deduplication is not established.",
+    "These are internal CEREBRON canaries and do not constitute independent external scientific confirmation.",
+    "Global F72 remains FAIL because the current reality-gate state has a separate REALITY_FAILURE.",
+    "This scoped review does not authorize M4 GOLD promotion, dataset admission, neural training, or runtime activation."
+  ],
+  "result_sha256": "3b925348d4a04b11ff54d5472a5a3cd52b83af10ea188c8c50222b341caf5aee"
+}
