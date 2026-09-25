@@ -1,0 +1,19 @@
+{
+  "schema": "F72_RDX_GOLD_PROMOTION_POLICY_REVIEW_REQUEST_V1",
+  "rdx_repo": "dmaillot95-ui/cerebron-rdx-exchange",
+  "rdx_commit": "0f80484dbb84803316397af9601284364a6d84be",
+  "central_repo": "dmaillot95-ui/cerebron-omega-ai",
+  "central_commit": "48314bcd8b0bac75098aea3d4365232e16ec9255",
+  "central_policy_path": "config/memory-promotion-policy-v1.json",
+  "f72_reality_receipt": "receipts/current-registry-reality-v2-36162737723.json",
+  "f72_reality_receipt_sha256": "4ecc74b6e381ad8b6f6f465b003095615f4b7fa90bef53b48d2cddde2a47c16c",
+  "rdx_paths": {
+    "object_registry": "data/architecton/object-registry.json",
+    "integration_log": "data/architecton/integration-log.json",
+    "pack": "data/packs/RDX-000001.json",
+    "governance": "config/rdx-governance.json"
+  },
+  "auto_gold_release": false,
+  "auto_training_release": false,
+  "purpose": "Review current RDX snapshot for M4 GOLD admission readiness without mutating RDX or releasing training."
+}
