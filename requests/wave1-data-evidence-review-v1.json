@@ -6,13 +6,11 @@
   "semantic_audit_receipt_path": "receipts/wave1/wave1-quarantine-audit-36107794532.json",
   "baseline_audit_receipt_path": "receipts/wave1/wave1-parallel-baseline-audit-36103514385.json",
   "expected_manifest_sha256": "4fe279c2941b324d1a7fb2620bff945aa6558c7596aa5814ac4802d55ac36abe",
-  "expected_source_content_sha256": {
-    "build": "966d149eeda2c5f15ca93f6b9601eada0b874ca9567773fc3549b2f7036c11f8",
-    "audit": "d102a0dd648fc3cc9c6eaf9b8af375fbc6f22b0bb83c4be77479b37f8462f5c2",
-    "baseline": "c0178c7f504a40718fdbfebab22bb8f31f217ce199ee9a032321dd943117abd8"
-  },
   "requested_claim": "Wave1 synthetic contract candidate pool may proceed to AFAH data-admission review while training remains locked.",
   "requested_gate": "REALITY_EVIDENCE_REVIEW",
   "max_claim_ceiling": "SUPPORTED_SCOPED_SYNTHETIC_DATA_CONTRACT_EVIDENCE",
-  "auto_training_release": false
+  "auto_training_release": false,
+  "request_version": "V2_PINNED_COMMIT_NO_REDUNDANT_RAW_SHA",
+  "previous_run": 36108035485,
+  "previous_failure": "EXPECTED_INTERNAL_RECEIPT_SHA_WAS_NOT_RAW_FILE_SHA256"
 }
