@@ -1,0 +1,57 @@
+name: F72 Wave1 AFAH LoRA Evidence Review V1
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'requests/wave1-afah-lora-evidence-review-v1.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile F72 AFAH LoRA review
+        run: python -m py_compile worker/wave1_afah_lora_evidence_review_v1.py
+      - name: Run F72 AFAH LoRA evidence review
+        run: python worker/wave1_afah_lora_evidence_review_v1.py
+      - name: Verify receipt
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/wave1-afah-lora-evidence-review-v1.json").read_text())
+          assert d["farm_id"]==72
+          assert d["role"]=="AFAH"
+          assert d["review_pass"] is True
+          assert d["evidence_status"]=="SUPPORTED"
+          assert d["evidence_level"]=="E2"
+          assert d["route"]=="AFAH_POLICY_FINAL_REVIEW"
+          assert d["candidate_adapter_used_for_review"] is False
+          assert d["training_released"] is False
+          assert all(d["checks"].values())
+          print("F72_WAVE1_AFAH_LORA=PASS",d["result_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-wave1-afah-lora-review-${{ github.run_id }}
+          path: artifacts/wave1-afah-lora-evidence-review-v1.json
+          if-no-files-found: error
+      - name: Persist F72 AFAH review
+        run: |
+          mkdir -p receipts
+          cp artifacts/wave1-afah-lora-evidence-review-v1.json receipts/wave1-afah-lora-evidence-review-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/wave1-afah-lora-evidence-review-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 Wave1 AFAH LoRA review ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
