@@ -1,0 +1,16 @@
+{
+  "schema": "F72_WAVE2_DATA_EVIDENCE_REVIEW_REQUEST_V2",
+  "baseline": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "3d67c5371dfd576fca3ac5cc40eb98bfd552de87",
+    "receipt": "receipts/wave2/canonical/wave2-parallel-baseline-audit-36111654337.json"
+  },
+  "quarantine": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "edd619671f86e86f1bd277cb67936c5d209991e3",
+    "receipt": "receipts/wave2/wave2-quarantine-audit-36112884799.json"
+  },
+  "expected_manifest_sha256": "c4c1b1db4a6e074c3d88b8cbe20c38a969f8f45d236bb25bc549c82b2722d744",
+  "requested_claim": "Wave2 synthetic contract candidate pool may proceed to AFAH data-admission review while training remains locked.",
+  "auto_training_release": false
+}
