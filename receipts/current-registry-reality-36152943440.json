@@ -1,0 +1,47 @@
+{
+  "schema": "F72_CURRENT_REGISTRY_REALITY_V1",
+  "farm_id": 72,
+  "status": "PASS",
+  "source": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "cd6b614ef27becbbf1a4a008bc38c5d15b280e2a",
+    "path": "config/farms.json",
+    "sha256": "d23401747d7426473d095153f5d1e18db36d0d630706796374d55fce24affeba"
+  },
+  "reproduction_source": {
+    "repo": "dmaillot95-ui/cerebron-farm-71-scientific-reproduction",
+    "commit": "8d413f3507e1b9bbd8050dc46e8afd4c3253b3fd",
+    "receipt": "receipts/current-registry-reproduction-36152608439.json",
+    "receipt_sha256": "406d4b400d2c15f8666a26e01f5dc11df4d0b348920213011e628a7677b47262"
+  },
+  "observed": {
+    "farm_count": 172,
+    "first_id": 1,
+    "last_id": 172
+  },
+  "checks": {
+    "f71_schema": true,
+    "f71_pass": true,
+    "same_source_commit": true,
+    "same_registry_sha": true,
+    "observed_count_172": true,
+    "ids_1_to_172": true,
+    "ids_unique": true,
+    "repos_unique": true,
+    "independent_reproduction_seen": true
+  },
+  "reality_gate_scoped": "PASS",
+  "global_f72_gate": "HOLD",
+  "global_release": false,
+  "gold_released": false,
+  "training_released": false,
+  "remaining_requirements": [
+    "FRESH_ABLATION",
+    "FRESH_TRANSFER",
+    "AFAH_REVIEW",
+    "PROMOTION_POLICY_REVIEW"
+  ],
+  "decision": "CURRENT_REGISTRY_FACT_SUPPORTED_SCOPED_ONLY",
+  "claim_ceiling": "PINNED_CURRENT_REGISTRY_REPRODUCTION_AND_REALITY_PASS_ONLY_NO_GLOBAL_PROMOTION_RELEASE",
+  "receipt_sha256": "e14f8c2890bc1b5e12dda9d360749a96b9d9fe941ea4b75a00f4c36049d15bbe"
+}
