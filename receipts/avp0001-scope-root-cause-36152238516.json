@@ -1,0 +1,76 @@
+{
+  "schema": "F72_AVP0001_SCOPE_ROOT_CAUSE_V1",
+  "status": "PASS",
+  "farm_id": 72,
+  "packet": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "source_commit": "c738b2e415463fc176cb2635b4ef0548453e6760",
+    "packet_sha256": "5ea9e1ff283b2df1caaf342d72c02067225937b8b846f3f4093fe143978679f0",
+    "claim": "The active CEREBRON farm registry contains exactly 74 farms with integer IDs 1 through 74, with no duplicate IDs and no duplicate repository names.",
+    "scope": "config/farms.json at the packet source commit"
+  },
+  "source_registry": {
+    "commit": "c738b2e415463fc176cb2635b4ef0548453e6760",
+    "sha256": "2a2f943be5842f22b45d4518713a0f963f6219d6fe7eec1eb8dd5412b3581169",
+    "observed": {
+      "count": 74,
+      "first_id": 1,
+      "last_id": 74,
+      "ids_unique": true,
+      "repos_unique": true,
+      "ids_contiguous_1_to_n": true
+    }
+  },
+  "current_registry": {
+    "commit": "cd6b614ef27becbbf1a4a008bc38c5d15b280e2a",
+    "sha256": "d23401747d7426473d095153f5d1e18db36d0d630706796374d55fce24affeba",
+    "observed": {
+      "count": 172,
+      "first_id": 1,
+      "last_id": 172,
+      "ids_unique": true,
+      "repos_unique": true,
+      "ids_contiguous_1_to_n": true
+    }
+  },
+  "scheduled_workflows": {
+    "F71": {
+      "commit": "4a07374eeff355bef1d77c911555549dba0b0fa5",
+      "workflow_sha256": "186306b37d96739d7c20a7fb62996b53732e282aeb9da12b40ac43cd6f5b9812"
+    },
+    "F72": {
+      "commit": "644b2ebe1ed3a278a7ccc33eae495091ef477e2d",
+      "workflow_sha256": "f9edac9fd107bd36917d04781783ef121bef8e51e10a0d073f7405b06168eea5"
+    }
+  },
+  "checks": {
+    "packet_id": true,
+    "claim_is_74": true,
+    "claim_scope_is_source_commit": true,
+    "source_registry_count_74": true,
+    "source_registry_ids_1_74": true,
+    "source_registry_unique": true,
+    "current_registry_changed": true,
+    "current_registry_count_172": true,
+    "current_registry_contiguous": true,
+    "f71_reads_main_current": true,
+    "f71_hardcodes_74": true,
+    "f72_reads_main_current": true,
+    "f72_hardcodes_74": true
+  },
+  "historical_claim_matches_source": true,
+  "historical_claim_matches_current": false,
+  "diagnosis": "AVP0001_IS_HISTORICAL_CALIBRATION_BUT_F71_F72_COMPARE_IT_TO_MOVING_MAIN_REGISTRY",
+  "decision": "SEPARATE_HISTORICAL_CALIBRATION_FROM_CURRENT_PROMOTION_GATE",
+  "global_release": false,
+  "gold_released": false,
+  "training_released": false,
+  "recommended_action": [
+    "Pin AVP-0001 reproduction to its source commit for calibration evidence.",
+    "Do not use historical AVP-0001 PASS as current RDX GOLD authorization.",
+    "Create a fresh current-registry validation packet with an explicit pinned source commit before changing the global promotion gate.",
+    "Keep current F72 global promotion HOLD until fresh reproduction, reality, ablation, transfer and AFAH requirements are satisfied."
+  ],
+  "claim_ceiling": "ROOT_CAUSE_AND_HISTORICAL_SCOPE_AUDIT_ONLY_NO_GLOBAL_F72_RELEASE",
+  "receipt_sha256": "b44b55f15b0439e1b42db17d1ac9725f4e4fdee227730c31d9bc4202f50b204c"
+}
