@@ -1,0 +1,50 @@
+{
+  "schema": "F72_WAVE2_DATA_EVIDENCE_REVIEW_V1",
+  "farm_id": 72,
+  "farm_role": "reality-evidence-gate",
+  "source_baseline": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "3d67c5371dfd576fca3ac5cc40eb98bfd552de87"
+  },
+  "source_quarantine": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "edd619671f86e86f1bd277cb67936c5d209991e3"
+  },
+  "source_content_sha256": {
+    "baseline": "445d9a22c274182911232f8af9cd854f4e66bcb99b9fa747ae4444407566fb24",
+    "quarantine": "3ca99b95eeac6ac68b81d8c182cff4b90a33c2135e9720fa93dd233d0cd7cca3"
+  },
+  "manifest_sha256": "c4c1b1db4a6e074c3d88b8cbe20c38a969f8f45d236bb25bc549c82b2722d744",
+  "checks": {
+    "baseline_schema": true,
+    "baseline_receipts_4": true,
+    "baseline_real_inference_4": true,
+    "baseline_training_zero": true,
+    "baseline_independent_zero": true,
+    "baseline_lineages_declared": true,
+    "data_schema": true,
+    "manifest_match": true,
+    "record_count_456": true,
+    "role_counts": true,
+    "semantic_pass_456": true,
+    "unresolved_zero": true,
+    "baseline_overlap_zero": true,
+    "tamper_19_of_19": true,
+    "training_locked": true,
+    "state_ready": true
+  },
+  "review_pass": true,
+  "evidence_status": "SUPPORTED",
+  "evidence_level": "E2",
+  "decision": "F72_SUPPORTS_WAVE2_SYNTHETIC_CANDIDATE_POOL",
+  "route": "AFAH_WAVE2_DATA_ADMISSION_REVIEW",
+  "training_released": false,
+  "claim_ceiling": "SUPPORTED_SCOPED_SYNTHETIC_DATA_CONTRACT_EVIDENCE",
+  "residual": [
+    "Candidate data are deterministic synthetic contract records, not empirical ground truth.",
+    "Semantic audit is an independent code path within the same project, not external independent evidence.",
+    "Two shared model lineages in the baseline do not create independent scientific confirmation.",
+    "F72 support does not authorize training or runtime activation."
+  ],
+  "result_sha256": "4ed12347e94ced51fadcb6b9aee0cc589499f79ee0cf1a45e0d7b187489118a7"
+}
