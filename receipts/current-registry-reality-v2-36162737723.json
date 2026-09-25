@@ -1,0 +1,80 @@
+{
+  "schema": "F72_CURRENT_REGISTRY_REALITY_V2",
+  "farm_id": 72,
+  "status": "PASS",
+  "source": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "9caab262e7190a060818bfe0a17330c1564b7f1a",
+    "path": "config/farms.json",
+    "sha256": "84817380c3c5a7ee59668166146a0d49f8cc5ddbdb8448a0dca6c8203543d2f9"
+  },
+  "reproduction_source": {
+    "repo": "dmaillot95-ui/cerebron-farm-71-scientific-reproduction",
+    "commit": "516e285f11f521eb0ff4e49ee85d401f922a2099",
+    "receipt": "receipts/current-registry-reproduction-v2-36162578051.json",
+    "receipt_sha256": "bb18d86bc0704d7e14803f1dde17dd1b66b0e593aaac2205db9a7e1b636ac16a"
+  },
+  "observed": {
+    "registry_version": "2.27",
+    "entry_count": 154,
+    "first_id": 1,
+    "max_registered_id": 174,
+    "max_farms": 174,
+    "farm_ceiling": 174,
+    "missing_ids": [
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172
+    ]
+  },
+  "checks": {
+    "f71_schema_v2": true,
+    "f71_status_pass": true,
+    "f71_receipt_sha_match": true,
+    "same_source_commit": true,
+    "same_registry_sha": true,
+    "version_v227": true,
+    "entry_count_154": true,
+    "max_registered_id_174": true,
+    "max_farms_174": true,
+    "farm_ceiling_174": true,
+    "ids_unique": true,
+    "repos_unique": true,
+    "sparse_gap_exact_153_to_172": true,
+    "f152_present": true,
+    "f173_present": true,
+    "f174_present": true,
+    "independent_reproduction_seen": true
+  },
+  "reality_gate_scoped": "PASS",
+  "global_f72_gate": "HOLD",
+  "global_release": false,
+  "gold_released": false,
+  "training_released": false,
+  "remaining_requirements": [
+    "FRESH_ABLATION",
+    "FRESH_TRANSFER",
+    "AFAH_REVIEW",
+    "PROMOTION_POLICY_REVIEW"
+  ],
+  "decision": "CURRENT_SPARSE_REGISTRY_FACT_SUPPORTED_SCOPED_ONLY",
+  "claim_ceiling": "PINNED_CURRENT_SPARSE_REGISTRY_REPRODUCTION_AND_REALITY_PASS_ONLY_NO_GLOBAL_PROMOTION_RELEASE",
+  "receipt_sha256": "4ecc74b6e381ad8b6f6f465b003095615f4b7fa90bef53b48d2cddde2a47c16c"
+}
