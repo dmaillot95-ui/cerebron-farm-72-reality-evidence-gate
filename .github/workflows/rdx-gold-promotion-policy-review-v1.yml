@@ -1,0 +1,55 @@
+name: F72 RDX GOLD Promotion Policy Review V1
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'requests/rdx-gold-promotion-policy-review-v1.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run RDX GOLD promotion policy review
+        run: python worker/rdx_gold_promotion_policy_review_v1.py
+      - name: Verify fail-closed policy outcome
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/rdx-gold-promotion-policy-review-v1.json").read_text())
+          assert d["status"]=="PASS"
+          assert d["review_pass"] is True
+          assert d["promotion_policy_review"]=="PASS_HOLD"
+          assert d["candidate_ready"] is False
+          assert d["decision"]=="HOLD_NO_TRAIN_ELIGIBLE_GOLD_OBJECTS"
+          assert d["global_f72_gate"]=="FAIL"
+          assert d["gold_released"] is False
+          assert d["training_released"] is False
+          assert all(d["review_checks"].values())
+          print("F72_RDX_GOLD_POLICY_REVIEW=PASS_HOLD",d["receipt_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-rdx-gold-promotion-policy-review-v1
+          path: artifacts/rdx-gold-promotion-policy-review-v1.json
+          if-no-files-found: error
+      - name: Persist review receipt
+        run: |
+          mkdir -p receipts
+          cp artifacts/rdx-gold-promotion-policy-review-v1.json receipts/rdx-gold-promotion-policy-review-v1-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/rdx-gold-promotion-policy-review-v1-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 RDX GOLD promotion policy review ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
