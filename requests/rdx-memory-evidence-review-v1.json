@@ -1,0 +1,46 @@
+{
+  "schema": "F72_RDX_MEMORY_EVIDENCE_REVIEW_REQUEST_V1",
+  "sources": {
+    "ingress": {
+      "repo": "dmaillot95-ui/cerebron-rdx-exchange",
+      "commit": "c9abd88e3dc5bfad4b704939bf5867494f4c34d6",
+      "receipt": "evidence/rdx-canaries/rdx-ingress-canary-36142030500.json"
+    },
+    "write_read_recall": {
+      "repo": "dmaillot95-ui/cerebron-omega-ai",
+      "commit": "32aa8415bc2ac9d7927dfa003767dd8478fea1f1",
+      "receipt": "receipts/rdx/rdx-memory-write-read-recall-canary-v1.json"
+    },
+    "f114": {
+      "repo": "dmaillot95-ui/cerebron-farm-114-encyclopedic-memory-index",
+      "commit": "ffac54ec8dd4bdb681e17d154f6e2eb9e3a37d81",
+      "receipt": "receipts/rdx-canonical-index-canary-36146849036.json"
+    },
+    "f115": {
+      "repo": "dmaillot95-ui/cerebron-farm-115-vector-semantic-memory",
+      "commit": "36000bb0a473016d0e7cfab159a4711fa6075885",
+      "receipt": "receipts/rdx-semantic-recall-canary-36146647325.json"
+    },
+    "f116": {
+      "repo": "dmaillot95-ui/cerebron-farm-116-dedup-knowledge-fusion",
+      "commit": "3ff39f51f8d7c3071497d3e9f3f72778061b4258",
+      "receipt": "receipts/rdx-dedup-fusion-canary-36146855717.json"
+    },
+    "f72_state": {
+      "repo": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
+      "commit": "d2ca8fbad1e837f2da641a24aa74b49e795af0ff",
+      "receipt": "agora/state.json"
+    }
+  },
+  "expected_receipt_sha256": {
+    "ingress": "960d8cf216f31ed7d191eb2852d7bb1446180f7ae37300048b9626f2c09b8db7",
+    "write_read_recall": "a0544c0d774e34d8107be592b5193ce321d36182a44581786edfb3f76db5450f",
+    "f114": "37ba91639013b8b1f557b95da72243123a35767997b6718424fb9526f12deace",
+    "f115": "0fd57ab740fb6cd928d86c68724626dbb4347f01ded9b641b2c6133492ae4778",
+    "f116": "4a4ad9d99513e4bd252f93d672391fa73017b37969c264abc9d52cf9098a34ab"
+  },
+  "requested_claim": "The RDX memory canary stack is supported for scoped M1/M7 memory and synthetic semantic-retrieval validation only. Production RAG quality, M4 GOLD promotion, dataset admission, and neural training remain blocked.",
+  "global_promotion_release": false,
+  "gold_release": false,
+  "training_release": false
+}
