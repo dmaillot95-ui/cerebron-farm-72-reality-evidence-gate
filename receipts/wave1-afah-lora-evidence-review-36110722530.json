@@ -1,0 +1,57 @@
+{
+  "schema": "F72_WAVE1_AFAH_LORA_EVIDENCE_REVIEW_V1",
+  "farm_id": 72,
+  "farm_role": "reality-evidence-gate",
+  "source_repo": "dmaillot95-ui/cerebron-omega-ai",
+  "source_commit": "b8702f2b7c713819a6c7b60df00910a0e5c70f55",
+  "source_receipt_content_sha256": {
+    "role_receipt": "a3769ebbfd288b48bec4b86c3aede1570ae6c284e4e3f3d73352ef72bcb3ce46",
+    "canonical_audit": "3bb4743e7e27319a26ae3b281faf7f82e3e8cc0ee2644273f13bfebe3b019732"
+  },
+  "role": "AFAH",
+  "adapter_sha256": "60695846b0b7d8144c043c4f3340e7a6d4b5862e04b89acf2738acf571f4cda0",
+  "checks": {
+    "canonical_run": true,
+    "role_afah": true,
+    "real_training": true,
+    "weights_changed": true,
+    "hf_readback": true,
+    "cold_deny_training": true,
+    "validation_gate": true,
+    "cold_gate": true,
+    "no_critical_regression": true,
+    "m6_gain_positive": true,
+    "transfer_gain_positive": true,
+    "red_gain_nonnegative": true,
+    "validation_gain_nonnegative": true,
+    "candidate_not_promoted": true,
+    "candidate_decision": true,
+    "audit_one_candidate": true,
+    "audit_three_rollbacks": true,
+    "shared_lineage_declared": true,
+    "adapter_sha_match": true,
+    "report_sha_match": true
+  },
+  "review_pass": true,
+  "evidence_status": "SUPPORTED",
+  "evidence_level": "E2",
+  "route": "AFAH_POLICY_FINAL_REVIEW",
+  "claim_reviewed": "AFAH Wave1 LoRA changed adapter weights and improved scoped validation, M6, transfer and Red Team synthetic evaluations without critical regression.",
+  "claim_ceiling": "SUPPORTED_SCOPED_SYNTHETIC_NEURAL_ADAPTER_EVIDENCE",
+  "candidate_adapter_used_for_review": false,
+  "training_released": false,
+  "residual": [
+    "Training and evaluations are synthetic and scoped to evidence-state classification.",
+    "All Wave1 adapters share the same Qwen base-model lineage.",
+    "This F72 review is not external third-party evidence.",
+    "F72 support does not activate the adapter at runtime and does not establish general AFAH capability."
+  ],
+  "rules_applied": [
+    "REALITY>COHERENCE",
+    "EVIDENCE>CONFIDENCE",
+    "CLAIM<=EVIDENCE",
+    "VERIFY_BEFORE_COMMIT",
+    "TRANSFER BEFORE GENERALITY"
+  ],
+  "result_sha256": "71dfa080d9d27687a9b40c1f8c55f875ecf2ddfd36ba188f3be62864b79c014f"
+}
