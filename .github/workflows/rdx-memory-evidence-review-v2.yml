@@ -1,0 +1,57 @@
+name: F72 RDX Memory Evidence Review V2
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'requests/rdx-memory-evidence-review-v2.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Compile V2 reviewer
+        run: python -m py_compile worker/rdx_memory_evidence_review_v2.py
+      - name: Run V2 review
+        run: python worker/rdx_memory_evidence_review_v2.py
+      - name: Verify scoped fail-closed result
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/rdx-memory-evidence-review-v2.json").read_text())
+          assert d["review_pass"] is True
+          assert d["evidence_status"]=="SUPPORTED"
+          assert d["global_f72_gate"]=="FAIL"
+          assert d["gold_released"] is False
+          assert d["training_released"] is False
+          assert d["production_rag_quality"]=="NOT_PROVEN"
+          assert d["semantic_dedup_auto_merge"]=="NOT_AUTHORIZED"
+          assert all(d["checks"].values())
+          print("F72_RDX_MEMORY_REVIEW_V2=PASS",d["result_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: f72-rdx-memory-evidence-review-v2-${{ github.run_id }}
+          path: artifacts/rdx-memory-evidence-review-v2.json
+          if-no-files-found: warn
+      - name: Persist V2 receipt
+        if: success()
+        run: |
+          mkdir -p receipts
+          cp artifacts/rdx-memory-evidence-review-v2.json receipts/rdx-memory-evidence-review-v2-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/rdx-memory-evidence-review-v2-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 RDX memory evidence review v2 ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
