@@ -1,0 +1,56 @@
+name: F72 Current Registry Reality V2
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'config/current-registry-reality-v2-trigger.txt'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  reality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run pinned sparse-registry reality check
+        run: python worker/current_registry_reality_v2.py
+      - name: Verify scoped-only PASS
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/current_registry_reality_v2.json").read_text())
+          assert d["status"]=="PASS"
+          assert d["reality_gate_scoped"]=="PASS"
+          assert d["observed"]["entry_count"]==154
+          assert d["observed"]["max_registered_id"]==174
+          assert d["observed"]["missing_ids"]==list(range(153,173))
+          assert d["global_f72_gate"]=="HOLD"
+          assert d["global_release"] is False
+          assert d["gold_released"] is False
+          assert d["training_released"] is False
+          assert all(d["checks"].values())
+          print("F72_CURRENT_REGISTRY_REALITY_V2=PASS",d["receipt_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-current-registry-reality-v2
+          path: artifacts/current_registry_reality_v2.json
+          if-no-files-found: error
+      - name: Persist receipt
+        run: |
+          mkdir -p receipts
+          cp artifacts/current_registry_reality_v2.json receipts/current-registry-reality-v2-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/current-registry-reality-v2-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 current sparse registry reality V2 ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
