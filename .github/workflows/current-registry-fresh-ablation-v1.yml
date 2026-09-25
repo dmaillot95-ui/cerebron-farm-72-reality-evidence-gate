@@ -1,0 +1,41 @@
+name: F72 Current Registry Fresh Ablation V1
+on:
+  push:
+    branches: [main]
+    paths: ['config/current-registry-fresh-ablation-v1-trigger.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ablation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python worker/current_registry_fresh_ablation_v1.py
+      - name: Verify ablation
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/current_registry_fresh_ablation_v1.json").read_text())
+          assert d["status"]=="PASS" and d["baseline_pass"] is True
+          assert d["ablation_count"]>=7 and d["all_critical_mutations_rejected"] is True
+          assert all(x["correct_rejection"] for x in d["ablations"])
+          assert d["global_release"] is False
+          print("F72_FRESH_ABLATION=PASS",d["receipt_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-current-registry-fresh-ablation-v1
+          path: artifacts/current_registry_fresh_ablation_v1.json
+      - name: Persist
+        run: |
+          cp artifacts/current_registry_fresh_ablation_v1.json receipts/current-registry-fresh-ablation-v1-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/current-registry-fresh-ablation-v1-${{ github.run_id }}.json
+          git commit -m "receipt: F72 fresh registry ablation ${{ github.run_id }}" || exit 0
+          for i in 1 2 3; do git pull --rebase origin main && git push && exit 0; sleep 5; done
+          exit 1
