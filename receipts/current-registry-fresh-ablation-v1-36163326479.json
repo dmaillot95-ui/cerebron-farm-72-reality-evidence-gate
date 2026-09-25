@@ -1,0 +1,104 @@
+{
+  "schema": "F72_CURRENT_REGISTRY_FRESH_ABLATION_V1",
+  "farm_id": 72,
+  "status": "PASS",
+  "source": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "9caab262e7190a060818bfe0a17330c1564b7f1a",
+    "path": "config/farms.json",
+    "sha256": "84817380c3c5a7ee59668166146a0d49f8cc5ddbdb8448a0dca6c8203543d2f9"
+  },
+  "reality_v2_receipt_sha256": "4ecc74b6e381ad8b6f6f465b003095615f4b7fa90bef53b48d2cddde2a47c16c",
+  "baseline_pass": true,
+  "baseline_checks": {
+    "version_v227": true,
+    "entry_count_154": true,
+    "max_registered_id_174": true,
+    "max_farms_174": true,
+    "farm_ceiling_174": true,
+    "ids_unique": true,
+    "repos_unique": true,
+    "sparse_gap_exact_153_to_172": true,
+    "f152_present": true,
+    "f173_present": true,
+    "f174_present": true
+  },
+  "runtime_seed_sha256": "809002734e789148dd252aab612f209a1f53cfde7d6f139285b6a97c38640398",
+  "ablation_count": 7,
+  "ablations": [
+    {
+      "case": "wrong_max_farms",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "max_farms_174"
+      ]
+    },
+    {
+      "case": "remove_f152",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "entry_count_154",
+        "f152_present",
+        "sparse_gap_exact_153_to_172"
+      ]
+    },
+    {
+      "case": "duplicate_repo",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "repos_unique"
+      ]
+    },
+    {
+      "case": "duplicate_id_and_repo",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "entry_count_154",
+        "ids_unique",
+        "repos_unique"
+      ]
+    },
+    {
+      "case": "wrong_farm_ceiling",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "farm_ceiling_174"
+      ]
+    },
+    {
+      "case": "wrong_version",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "version_v227"
+      ]
+    },
+    {
+      "case": "fill_forbidden_sparse_id",
+      "gate_pass": false,
+      "expected_gate_pass": false,
+      "correct_rejection": true,
+      "failed_checks": [
+        "f173_present",
+        "sparse_gap_exact_153_to_172"
+      ]
+    }
+  ],
+  "all_critical_mutations_rejected": true,
+  "global_release": false,
+  "gold_released": false,
+  "training_released": false,
+  "claim_ceiling": "FRESH_GATE_SENSITIVITY_ABLATION_ONLY_NO_GLOBAL_PROMOTION_RELEASE",
+  "receipt_sha256": "a1ffdfd15510661a26c8999476413ca2b95b604802728e22fd0b075740624b8b"
+}
