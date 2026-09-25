@@ -1,0 +1,54 @@
+name: F72 SAPHEA Evidence Review V1
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'requests/saphea-evidence-review-v1.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile F72 review worker
+        run: python -m py_compile worker/saphea_evidence_review_v1.py
+      - name: Run real F72 evidence review
+        run: python worker/saphea_evidence_review_v1.py
+      - name: Verify F72 receipt integrity
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("artifacts/saphea-evidence-review-v1.json")
+          d=json.loads(p.read_text())
+          assert d["farm_id"]==72
+          assert d["evidence_status"] in ["VERIFIED","SUPPORTED","PRELIMINARY","CONTRADICTORY","FAILED","UNKNOWN"]
+          assert d["evidence_level"] in [f"E{i}" for i in range(9)]
+          assert "CLAIM<=EVIDENCE" in d["rules_applied"]
+          assert len(d["result_sha256"])==64
+          print("F72_SAPHEA_REVIEW_RECEIPT=PASS",d["review_pass"],d["evidence_status"],d["evidence_level"],d["result_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-saphea-evidence-review-${{ github.run_id }}
+          path: artifacts/saphea-evidence-review-v1.json
+          if-no-files-found: error
+      - name: Persist F72 review receipt
+        run: |
+          mkdir -p receipts
+          cp artifacts/saphea-evidence-review-v1.json receipts/saphea-evidence-review-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/saphea-evidence-review-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 SAPHEA evidence review ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
