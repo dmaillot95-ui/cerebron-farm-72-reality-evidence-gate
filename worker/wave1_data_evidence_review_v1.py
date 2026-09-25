@@ -104,6 +104,8 @@ def main():
       "evidence_level":evidence_level,
       "decision":decision,
       "route":route,
+      "failed_checks":[k for k,v in checks.items() if not v],
+      "source_receipt_content_sha256":out["source_receipt_content_sha256"],
       "result_sha256":out["result_sha256"]
     },sort_keys=True))
     if not review_pass:
