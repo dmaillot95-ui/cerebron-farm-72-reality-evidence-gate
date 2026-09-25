@@ -1,0 +1,63 @@
+{
+  "schema": "F72_WAVE1_DATA_EVIDENCE_REVIEW_V1",
+  "farm_id": 72,
+  "farm_role": "reality-evidence-gate",
+  "source_repo": "dmaillot95-ui/cerebron-omega-ai",
+  "source_commit": "a732ad3cf1f00ff94e17cab2be8a97ca3dc30368",
+  "source_receipt_content_sha256": {
+    "build": "23a39ef4917858ce9c51ce7f34abb63fb9ab718dd3a49b1f69c8756a8c6fe053",
+    "audit": "2d2b1bc8a262c8e7ad62049f6eb5259bed9da033bb02a631e9a71672ee70125a",
+    "baseline": "0f090558a60ceaf0514bd2bd061d2206816b6b68e5095af6f4497103e637459e"
+  },
+  "manifest_sha256": "4fe279c2941b324d1a7fb2620bff945aa6558c7596aa5814ac4802d55ac36abe",
+  "checks": {
+    "build_run": true,
+    "build_record_count": true,
+    "role_counts": true,
+    "manifest_sha_expected": true,
+    "benchmark_overlap_zero": true,
+    "build_training_locked": true,
+    "build_state_quarantine": true,
+    "audit_run": true,
+    "audit_manifest_matches": true,
+    "semantic_pass_432": true,
+    "semantic_fail_zero": true,
+    "unresolved_zero": true,
+    "tamper_all_detected": true,
+    "audit_training_locked": true,
+    "audit_state": true,
+    "audit_not_independent_model_evidence": true,
+    "baseline_run": true,
+    "baseline_receipts_4": true,
+    "baseline_real_inference_4": true,
+    "baseline_training_zero": true,
+    "shared_lineage_declared": true,
+    "independent_evidence_zero": true,
+    "build_content_sha": true,
+    "audit_content_sha": true,
+    "baseline_content_sha": true
+  },
+  "review_pass": true,
+  "evidence_status": "SUPPORTED",
+  "evidence_level": "E2",
+  "decision": "F72_SUPPORTS_SYNTHETIC_CANDIDATE_POOL_ADMISSION",
+  "route": "AFAH_WAVE1_DATA_ADMISSION_REVIEW",
+  "claim_reviewed": "Wave1 AELYS/ETHERION/AFAH/METRION synthetic contract candidate pool is structurally reproducible, benchmark-separated, semantically audited and tamper-checked; it may proceed to AFAH data-admission review while training remains locked.",
+  "claim_ceiling": "SUPPORTED_SCOPED_SYNTHETIC_DATA_CONTRACT_EVIDENCE",
+  "training_released": false,
+  "residual": [
+    "All candidate records are deterministic synthetic contract data, not empirical ground truth.",
+    "Semantic audit is a separate code path in the same project, not independent external evidence.",
+    "Shared Qwen baseline lineage does not create independent evidence.",
+    "F72 review does not authorize training; AFAH admission review and fresh role-specific cold splits remain required."
+  ],
+  "rules_applied": [
+    "REALITY>COHERENCE",
+    "EVIDENCE>CONFIDENCE",
+    "CLAIM<=EVIDENCE",
+    "VERIFY_BEFORE_COMMIT",
+    "SIMULATION!=TEST",
+    "MEMORY!=TRAINING"
+  ],
+  "result_sha256": "d0f290c94b8cc7e73a494cd429a656763792da877fc3a11c0cbe51d7d5c15470"
+}
