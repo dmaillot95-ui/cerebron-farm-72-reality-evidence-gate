@@ -1,0 +1,85 @@
+{
+  "schema": "F72_RDX_GOLD_PROMOTION_POLICY_REVIEW_V1",
+  "farm_id": 72,
+  "status": "PASS",
+  "review_pass": true,
+  "source": {
+    "rdx_repo": "dmaillot95-ui/cerebron-rdx-exchange",
+    "rdx_commit": "0f80484dbb84803316397af9601284364a6d84be",
+    "central_repo": "dmaillot95-ui/cerebron-omega-ai",
+    "central_commit": "48314bcd8b0bac75098aea3d4365232e16ec9255"
+  },
+  "source_sha256": {
+    "object_registry": "e630de2070dfee9b5c49bf499b5ecfa124b385b1e209e4dbb8de5fde5d65097f",
+    "integration_log": "c0f890dcdae47ac0030f902fe44604b09d2d79aff63ce5028996b1ea83e39f7b",
+    "pack": "cdf79c2e24f4b4046c26e6806e575d67ec33670da3ea08a2dd1919fe753f08b2",
+    "governance": "ccc45874fe1c4c23125cefaf020372798dd79b2cf34c388d7ad514cd8a18f0c4",
+    "central_policy": "2bb9a5db3f689bc4b208d52284b8222ae09ae94a33b2f44eb528278f8dd93e26"
+  },
+  "f72_registry_reality": {
+    "receipt": "receipts/current-registry-reality-v2-36162737723.json",
+    "receipt_sha256": "4ecc74b6e381ad8b6f6f465b003095615f4b7fa90bef53b48d2cddde2a47c16c",
+    "scoped": "PASS",
+    "global": "HOLD"
+  },
+  "observed": {
+    "canonical_object_count": 0,
+    "integration_entry_count": 0,
+    "pack_id": "RDX-000001",
+    "pack_status": "SOURCED",
+    "execution_count": 0,
+    "human_review_complete": false,
+    "source_count": 4,
+    "source_rights_clear_for_training": false,
+    "open_work_count": 5
+  },
+  "review_checks": {
+    "request_schema": true,
+    "rdx_object_registry_schema": true,
+    "rdx_integration_log_schema": true,
+    "rdx_pack_present": true,
+    "rdx_governance_present": true,
+    "human_review_is_required": true,
+    "central_f72_fail_closed": true,
+    "central_gold_blocked": true,
+    "f72_registry_reality_scoped_pass": true,
+    "f72_registry_reality_global_hold": true,
+    "no_auto_release_requested": true
+  },
+  "candidate_readiness": {
+    "canonical_objects_present": false,
+    "integrated_handoffs_present": false,
+    "verified_executions_present": false,
+    "human_review_complete": false,
+    "source_rights_clear_for_training": false,
+    "pack_open_work_empty": false,
+    "fresh_transfer_on_train_candidate": false,
+    "afah_review_on_train_candidate": false
+  },
+  "candidate_ready": false,
+  "blockers": [
+    "CANONICAL_OBJECTS_PRESENT",
+    "INTEGRATED_HANDOFFS_PRESENT",
+    "VERIFIED_EXECUTIONS_PRESENT",
+    "HUMAN_REVIEW_COMPLETE",
+    "SOURCE_RIGHTS_CLEAR_FOR_TRAINING",
+    "PACK_OPEN_WORK_EMPTY",
+    "FRESH_TRANSFER_ON_TRAIN_CANDIDATE",
+    "AFAH_REVIEW_ON_TRAIN_CANDIDATE"
+  ],
+  "promotion_policy_review": "PASS_HOLD",
+  "decision": "HOLD_NO_TRAIN_ELIGIBLE_GOLD_OBJECTS",
+  "global_f72_gate": "FAIL",
+  "gold_released": false,
+  "training_released": false,
+  "next_requirements": [
+    "INTEGRATE_VERIFIED_RDX_OBJECTS",
+    "ESTABLISH_TRAINING_RIGHTS",
+    "COMPLETE_REQUIRED_HUMAN_REVIEW",
+    "FRESH_ABLATION_ON_ACTUAL_GOLD_CANDIDATE",
+    "FRESH_TRANSFER_ON_ACTUAL_GOLD_CANDIDATE",
+    "AFAH_REVIEW_ON_ACTUAL_GOLD_CANDIDATE"
+  ],
+  "claim_ceiling": "PROMOTION_POLICY_REVIEW_ONLY; CURRENT_RDX_SNAPSHOT_HAS_NO_TRAIN_ELIGIBLE_M4_GOLD_OBJECT; NO_GOLD_OR_TRAINING_RELEASE",
+  "receipt_sha256": "712d0d94b793f904dda5ed7d90d9e664cf7f384a2b18c84f6715b19f1a8ed7f4"
+}
