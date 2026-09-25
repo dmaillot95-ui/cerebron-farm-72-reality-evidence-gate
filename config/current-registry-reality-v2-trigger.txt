@@ -1,0 +1,9 @@
+F72 CURRENT REGISTRY REALITY V2
+core_commit=9caab262e7190a060818bfe0a17330c1564b7f1a
+f71_commit=516e285f11f521eb0ff4e49ee85d401f922a2099
+f71_receipt=receipts/current-registry-reproduction-v2-36162578051.json
+registry_version=2.27
+entry_count=154
+max_registered_id=174
+sparse_missing_ids=153-172
+global_release=false
