@@ -1,0 +1,57 @@
+name: F72 Wave2 Data Evidence Review V1
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'requests/wave2-data-evidence-review-v1.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile F72 Wave2 data review
+        run: python -m py_compile worker/wave2_data_evidence_review_v1.py
+      - name: Run F72 Wave2 data evidence review
+        run: python worker/wave2_data_evidence_review_v1.py
+      - name: Verify F72 Wave2 receipt
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/wave2-data-evidence-review-v1.json").read_text())
+          assert d["farm_id"]==72
+          assert d["review_pass"] is True
+          assert d["evidence_status"]=="SUPPORTED"
+          assert d["evidence_level"]=="E2"
+          assert d["training_released"] is False
+          assert d["route"]=="AFAH_WAVE2_DATA_ADMISSION_REVIEW"
+          assert all(d["checks"].values())
+          print("F72_WAVE2_DATA_REVIEW=PASS",d["result_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: f72-wave2-data-evidence-review-${{ github.run_id }}
+          path: artifacts/wave2-data-evidence-review-v1.json
+          if-no-files-found: warn
+      - name: Persist F72 Wave2 receipt
+        if: success()
+        run: |
+          mkdir -p receipts
+          cp artifacts/wave2-data-evidence-review-v1.json receipts/wave2-data-evidence-review-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/wave2-data-evidence-review-${{ github.run_id }}.json
+          git diff --cached --quiet && exit 0
+          git commit -m "receipt: F72 Wave2 data evidence review ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
