@@ -1,0 +1,39 @@
+{
+  "schema": "F72_RDX_MEMORY_EVIDENCE_REVIEW_REQUEST_V2",
+  "sources": {
+    "f115_dense_stress": {
+      "repo": "dmaillot95-ui/cerebron-farm-115-vector-semantic-memory",
+      "commit": "5db84112bd62fd54239d93fce427636126e8be53",
+      "receipt": "receipts/rdx-semantic-recall-stress-v2-36150611340-pointer.json"
+    },
+    "f115_hybrid_holdout": {
+      "repo": "dmaillot95-ui/cerebron-farm-115-vector-semantic-memory",
+      "commit": "5db84112bd62fd54239d93fce427636126e8be53",
+      "receipt": "receipts/rdx-hybrid-retrieval-fresh-holdout-v1-36150890905.json"
+    },
+    "f116_semantic_dedup": {
+      "repo": "dmaillot95-ui/cerebron-farm-116-dedup-knowledge-fusion",
+      "commit": "0bb2f4bdcaef25a12787a947dc82b72385a5f5cc",
+      "receipt": "receipts/rdx-semantic-dedup-canary-v2-36150666844.json"
+    },
+    "f119_archive": {
+      "repo": "dmaillot95-ui/cerebron-farm-119-evidence-scientific-archive",
+      "commit": "c4b36020fd0e1fefea5f2cea89159e9cf6586d32",
+      "receipt": "receipts/rdx-evidence-archive-canary-36149877205.json"
+    },
+    "f120_governor": {
+      "repo": "dmaillot95-ui/cerebron-farm-120-memory-governor-freeze",
+      "commit": "99a4a105e5b1899c3f72a90b956abaaf14950f70",
+      "receipt": "receipts/rdx-memory-governor-canary-36149917748.json"
+    },
+    "f72_state": {
+      "repo": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
+      "commit": "919a556a47632149ac1da992cf790fc41f2fc64b",
+      "receipt": "agora/state.json"
+    }
+  },
+  "requested_claim": "RDX memory canary stack V2 is supported for scoped retrieval, semantic candidate detection, provenance archiving, and fail-closed governance only. Production RAG quality, automatic semantic merge, M4 GOLD, dataset admission, neural training, and runtime activation remain unauthorized.",
+  "global_promotion_release": false,
+  "gold_release": false,
+  "training_release": false
+}
