@@ -1,0 +1,4 @@
+F72 CURRENT REGISTRY FRESH ABLATION V1
+core_commit=9caab262e7190a060818bfe0a17330c1564b7f1a
+reality_v2_receipt_sha256=4ecc74b6e381ad8b6f6f465b003095615f4b7fa90bef53b48d2cddde2a47c16c
+global_release=false
