@@ -1,0 +1,4 @@
+F72 CURRENT REGISTRY FRESH TRANSFER V1
+old_commit=cd6b614ef27becbbf1a4a008bc38c5d15b280e2a
+new_commit=9caab262e7190a060818bfe0a17330c1564b7f1a
+global_release=false
