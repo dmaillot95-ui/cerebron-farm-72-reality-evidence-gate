@@ -39,6 +39,7 @@ jobs:
           print("F72_WAVE1_DATA_REVIEW=PASS",d["result_sha256"])
           PY
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: f72-wave1-data-evidence-review-${{ github.run_id }}
           path: artifacts/wave1-data-evidence-review-v1.json
