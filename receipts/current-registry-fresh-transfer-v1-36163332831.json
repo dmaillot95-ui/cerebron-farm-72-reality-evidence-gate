@@ -1,0 +1,58 @@
+{
+  "schema": "F72_CURRENT_REGISTRY_FRESH_TRANSFER_V1",
+  "farm_id": 72,
+  "status": "PASS",
+  "source_old": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "cd6b614ef27becbbf1a4a008bc38c5d15b280e2a",
+    "path": "config/farms.json",
+    "sha256": "d23401747d7426473d095153f5d1e18db36d0d630706796374d55fce24affeba"
+  },
+  "source_new": {
+    "repo": "dmaillot95-ui/cerebron-omega-ai",
+    "commit": "9caab262e7190a060818bfe0a17330c1564b7f1a",
+    "path": "config/farms.json",
+    "sha256": "84817380c3c5a7ee59668166146a0d49f8cc5ddbdb8448a0dca6c8203543d2f9"
+  },
+  "old_topology": {
+    "type": "CONTIGUOUS",
+    "checks": {
+      "entry_count_172": true,
+      "ids_contiguous_1_to_172": true,
+      "ids_unique": true,
+      "repos_unique": true,
+      "max_id_172": true,
+      "missing_none": true
+    },
+    "pass": true
+  },
+  "new_topology": {
+    "type": "SPARSE_DECLARED",
+    "checks": {
+      "version_v227": true,
+      "entry_count_154": true,
+      "max_registered_id_174": true,
+      "max_farms_174": true,
+      "farm_ceiling_174": true,
+      "ids_unique": true,
+      "repos_unique": true,
+      "sparse_gap_exact_153_to_172": true,
+      "f152_present": true,
+      "f173_present": true,
+      "f174_present": true
+    },
+    "pass": true
+  },
+  "anti_hardcode_control": {
+    "old_contiguous_predicate_accepts_new": false,
+    "expected": false
+  },
+  "topology_changed": true,
+  "transfer": "PASS",
+  "interpretation": "Validation methodology handles two real registry revisions with different topology by using version-scoped declared invariants; fixed historical 1..N assumption is rejected on the new sparse registry.",
+  "global_release": false,
+  "gold_released": false,
+  "training_released": false,
+  "claim_ceiling": "STRUCTURAL_TRANSFER_ACROSS_TWO_REAL_PINNED_REGISTRY_REVISIONS_ONLY_NO_GLOBAL_PROMOTION_RELEASE",
+  "receipt_sha256": "5beeeaf73206e8075d79f593d6018f2f7d684cf5adfb961f81655a9345d8649f"
+}
