@@ -13,19 +13,20 @@ def fetch(repo,commit,path):
 
 def main():
     req=json.loads(REQ.read_text())
-    src=req["source"]
-    baseline,bsha=fetch(src["repo"],src["commit"],src["baseline_receipt"])
-    data,dsha=fetch(src["repo"],src["commit"],src["quarantine_receipt"])
+    bsrc=req["baseline"]
+    qsrc=req["quarantine"]
+    baseline,bsha=fetch(bsrc["repo"],bsrc["commit"],bsrc["receipt"])
+    data,dsha=fetch(qsrc["repo"],qsrc["commit"],qsrc["receipt"])
     manifest=req["expected_manifest_sha256"]
 
     checks={}
-    checks["baseline_schema"]=baseline.get("schema")=="CEREBRON_WAVE2_PARALLEL_BASELINE_AUDIT_V1"
+    checks["baseline_schema"]=baseline.get("schema") in {"CEREBRON_WAVE2_PARALLEL_BASELINE_AUDIT_V1","CEREBRON_WAVE2_PARALLEL_BASELINE_CANONICAL_AUDIT_V1"}
     checks["baseline_receipts_4"]=baseline.get("receipt_count")==4
     checks["baseline_real_inference_4"]=baseline.get("real_inference_count")==4
     checks["baseline_training_zero"]=baseline.get("training_executed_count")==0
     checks["baseline_independent_zero"]=baseline.get("independent_evidence_count")==0
     checks["baseline_lineages_declared"]=baseline.get("unique_lineage_fingerprints")==2
-    checks["data_schema"]=data.get("schema")=="CEREBRON_WAVE2_QUARANTINE_BUILD_AUDIT_POINTER_V1"
+    checks["data_schema"]=data.get("schema")=="CEREBRON_WAVE2_QUARANTINE_AUDIT_POINTER_V1"
     checks["manifest_match"]=data.get("manifest_sha256")==manifest
     checks["record_count_456"]=data.get("record_count")==456
     checks["role_counts"]=data.get("role_counts")=={"SPIRALION":96,"HYPERION":96,"ASTRION":96,"SAPHEA_MICRO":168}
@@ -41,8 +42,8 @@ def main():
       "schema":"F72_WAVE2_DATA_EVIDENCE_REVIEW_V1",
       "farm_id":72,
       "farm_role":"reality-evidence-gate",
-      "source_repo":src["repo"],
-      "source_commit":src["commit"],
+      "source_baseline":{"repo":bsrc["repo"],"commit":bsrc["commit"]},
+      "source_quarantine":{"repo":qsrc["repo"],"commit":qsrc["commit"]},
       "source_content_sha256":{"baseline":bsha,"quarantine":dsha},
       "manifest_sha256":manifest,
       "checks":checks,
