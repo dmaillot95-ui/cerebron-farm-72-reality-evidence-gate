@@ -1,0 +1,13 @@
+{
+  "schema": "F72_SAPHEA_EVIDENCE_REVIEW_REQUEST_V1",
+  "source_repo": "dmaillot95-ui/cerebron-omega-ai",
+  "source_commit": "922afe778026fbe41e130ceefd908e702962642c",
+  "training_receipt_path": "receipts/training/saphea-first-lora-36100266729.json",
+  "transfer_receipt_path": "receipts/training/saphea-first-lora-transfer-36101181888.json",
+  "counter_audit_receipt_path": "receipts/training/saphea-lora-counter-audit-36101824432.json",
+  "expected_adapter_sha256": "0187a8e3b1ef1edcfd966b463137c36721fe9bcf5019233b52e4ec1354b01080",
+  "requested_claim": "SAPHEA G1 reversible LoRA changed adapter weights and improved scoped cold, held-out transfer, and adversarial synthetic evaluations.",
+  "requested_gate": "REALITY_EVIDENCE_REVIEW",
+  "max_claim_ceiling": "SUPPORTED_SCOPED_SYNTHETIC_NEURAL_ADAPTER_EVIDENCE",
+  "auto_promotion": false
+}
