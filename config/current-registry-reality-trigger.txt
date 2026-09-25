@@ -1,0 +1,6 @@
+F72 CURRENT REGISTRY REALITY V1
+source_commit=cd6b614ef27becbbf1a4a008bc38c5d15b280e2a
+f71_receipt_run=36152608439
+global_release=false
+gold_release=false
+training_release=false
