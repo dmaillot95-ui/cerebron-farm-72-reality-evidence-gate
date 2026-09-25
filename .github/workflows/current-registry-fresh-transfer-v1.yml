@@ -1,0 +1,41 @@
+name: F72 Current Registry Fresh Transfer V1
+on:
+  push:
+    branches: [main]
+    paths: ['config/current-registry-fresh-transfer-v1-trigger.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python worker/current_registry_fresh_transfer_v1.py
+      - name: Verify transfer
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          d=json.loads(pathlib.Path("artifacts/current_registry_fresh_transfer_v1.json").read_text())
+          assert d["status"]=="PASS" and d["transfer"]=="PASS"
+          assert d["old_topology"]["pass"] is True and d["new_topology"]["pass"] is True
+          assert d["anti_hardcode_control"]["old_contiguous_predicate_accepts_new"] is False
+          assert d["global_release"] is False
+          print("F72_FRESH_TRANSFER=PASS",d["receipt_sha256"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f72-current-registry-fresh-transfer-v1
+          path: artifacts/current_registry_fresh_transfer_v1.json
+      - name: Persist
+        run: |
+          cp artifacts/current_registry_fresh_transfer_v1.json receipts/current-registry-fresh-transfer-v1-${{ github.run_id }}.json
+          git config user.name cerebron-bot
+          git config user.email actions@users.noreply.github.com
+          git add receipts/current-registry-fresh-transfer-v1-${{ github.run_id }}.json
+          git commit -m "receipt: F72 fresh registry transfer ${{ github.run_id }}" || exit 0
+          for i in 1 2 3; do git pull --rebase origin main && git push && exit 0; sleep 5; done
+          exit 1
