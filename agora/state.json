@@ -1,8 +1,8 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:36244095977",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:36243529249",
-  "iteration": 737,
+  "state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:36244806480",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate:36244095977",
+  "iteration": 738,
   "resource": "dmaillot95-ui/cerebron-farm-72-reality-evidence-gate",
   "residual": "REALITY_FAILURE",
   "claims": [
@@ -22,7 +22,7 @@
   "reality_observations": {
     "packet_id": "AVP-0001",
     "observed": {
-      "count": 175,
+      "count": 174,
       "ids_1_to_74": false,
       "ids_unique": true,
       "repos_unique": true
